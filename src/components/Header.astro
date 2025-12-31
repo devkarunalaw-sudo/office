@@ -1,0 +1,154 @@
+---
+import { BASE_URL } from "../consts";
+import logo from "../assets/karuna_logo.svg";
+---
+
+<header
+  class="flex flex-col justify-center w-full min-h-14 gap-2 bg-dharma-burgundy shadow-sm fixed left-0 top-0 z-30"
+>
+  <div
+    class="flex items-center justify-between px-4 gap-4 w-full md:w-4/6 max-w-6xl mx-auto md:px-0"
+  >
+    <div class="flex items-center">
+      <a
+        href={BASE_URL}
+        class="w-10 h-10 bg-gray-100 rounded flex items-center justify-center"
+      >
+        <img src={logo.src} alt="Karuna Law Logo" class="w-8 h-8" />
+      </a>
+    </div>
+
+    <nav class="hidden md:flex gap-4 ml-auto">
+      <a href={BASE_URL} class="nav-link">Home</a>
+      <a href=`${BASE_URL}team` } class="nav-link">Our Team</a>
+      <a href=`${BASE_URL}office` } class="nav-link">Office</a>
+    </nav>
+    <button
+      class="md:hidden flex items-center justify-center w-10 h-10 rounded-full relative text-white hover:bg-dharma-gold-hover transition-colors"
+      aria-label="Toggle Navigation"
+      id="nav-toggle"
+    >
+      <svg
+        id="hamburger-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 transition-all duration-500 ease-in-out opacity-100 rotate-0 scale-100"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16m-7 6h7"></path>
+      </svg>
+      <svg
+        id="close-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        class="absolute h-6 w-6 transition-all duration-500 ease-in-out opacity-0 rotate-90 scale-75"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+  <nav
+    id="mobile-nav"
+    class="md:hidden flex flex-col items-center py-0 gap-2 max-h-0 overflow-hidden transition-all duration-700 ease-in-out"
+  >
+    <a href={BASE_URL} class="nav-link">Home</a>
+    <a href=`${BASE_URL}team` } class="nav-link">Our Team</a>
+    <a href=`${BASE_URL}office` } class="nav-link">Office</a>
+  </nav>
+</header>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const button = document.getElementById("nav-toggle");
+    const nav = document.getElementById("mobile-nav");
+    const hamburger = document.getElementById("hamburger-icon");
+    const close = document.getElementById("close-icon");
+
+    // Function to close mobile nav
+    function closeMobileNav() {
+      if (nav && !nav.classList.contains("max-h-0")) {
+        nav.classList.remove("max-h-32", "py-4");
+        nav.classList.add("max-h-0", "py-0");
+
+        // Switch back to hamburger icon
+        if (hamburger && close) {
+          close.classList.remove("opacity-100", "rotate-0", "scale-100");
+          close.classList.add("opacity-0", "rotate-90", "scale-75");
+          hamburger.classList.remove("opacity-0", "rotate-90", "scale-75");
+          hamburger.classList.add("opacity-100", "rotate-0", "scale-100");
+        }
+      }
+    }
+
+    // Function to toggle mobile nav
+    function toggleMobileNav() {
+      if (nav) {
+        // Toggle between closed (max-h-0 py-0) and open (max-h-32 py-4) states
+        if (nav.classList.contains("max-h-0")) {
+          nav.classList.remove("max-h-0", "py-0");
+          nav.classList.add("max-h-32", "py-4");
+        } else {
+          nav.classList.remove("max-h-32", "py-4");
+          nav.classList.add("max-h-0", "py-0");
+        }
+      }
+
+      if (hamburger && close) {
+        // Smooth transition between hamburger and close icons
+        if (hamburger.classList.contains("opacity-100")) {
+          // Switch to close icon
+          hamburger.classList.remove("opacity-100", "rotate-0", "scale-100");
+          hamburger.classList.add("opacity-0", "rotate-90", "scale-75");
+          close.classList.remove("opacity-0", "rotate-90", "scale-75");
+          close.classList.add("opacity-100", "rotate-0", "scale-100");
+        } else {
+          // Switch to hamburger icon
+          close.classList.remove("opacity-100", "rotate-0", "scale-100");
+          close.classList.add("opacity-0", "rotate-90", "scale-75");
+          hamburger.classList.remove("opacity-0", "rotate-90", "scale-75");
+          hamburger.classList.add("opacity-100", "rotate-0", "scale-100");
+        }
+      }
+    }
+
+    // Toggle button click handler
+    if (button) {
+      button.addEventListener("click", function (e) {
+        e.stopPropagation(); // Prevent event bubbling
+        toggleMobileNav();
+      });
+    }
+
+    // Close mobile nav when clicking outside
+    document.addEventListener("click", function (e) {
+      // Check if click is outside the mobile nav and toggle button
+      if (
+        nav &&
+        button &&
+        !nav.contains(e.target as Node) &&
+        !button.contains(e.target as Node)
+      ) {
+        closeMobileNav();
+      }
+    });
+
+    // Close mobile nav when clicking on nav links (optional - good UX)
+    if (nav) {
+      const navLinks = nav.querySelectorAll("a");
+      navLinks.forEach((link) => {
+        link.addEventListener("click", closeMobileNav);
+      });
+    }
+  });
+</script>

@@ -4,7 +4,10 @@ import HeroSection from "../components/HeroSection.astro";
 ---
 
 <Layout title="Home">
-  <div class="flex flex-col items-center justify-center w-full mx-auto">
+  <div
+    class="flex flex-col items-center justify-center w-full mx-auto"
+    slot="content"
+  >
     <HeroSection />
   </div>
 </Layout>
