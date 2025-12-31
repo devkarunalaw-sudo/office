@@ -1,0 +1,119 @@
+---
+// Services.astro
+import { Scale, Users, FileText, Globe } from "lucide-astro";
+
+// Import services from JSON file
+import servicesData from "../data/services.json";
+
+// Icon mapping
+const iconMap = {
+  Scale,
+  Users,
+  FileText,
+  Globe,
+};
+---
+
+<section class="py-16 px-4">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold text-gray-900 mb-4">
+        {servicesData.heading}
+      </h2>
+      {
+        servicesData.subheading && (
+          <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+            {servicesData.subheading}
+          </p>
+        )
+      }
+    </div>
+
+    <!-- Services Grid -->
+    <div class="grid md:grid-cols-2 gap-8 mb-12">
+      {
+        servicesData.services.map((service) => {
+          const IconComponent = iconMap[service.icon as keyof typeof iconMap];
+          return (
+            <div class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0">
+                  <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <IconComponent class="w-6 h-6 text-blue-600" />
+                  </div>
+                </div>
+                <div class="flex-1">
+                  {service.conditional && (
+                    <span class="inline-block bg-amber-100 text-amber-800 text-xs font-medium px-2.5 py-0.5 rounded mb-2">
+                      Subject to Availability
+                    </span>
+                  )}
+                  <h3 class="text-xl font-semibold text-gray-900 mb-3">
+                    {service.title}
+                  </h3>
+                  <p class="text-gray-600 mb-4">{service.description}</p>
+                  {service.features && service.features.length > 0 && (
+                    <ul class="space-y-2">
+                      {service.features.map((feature) => (
+                        <li class="flex items-start gap-2 text-gray-700">
+                          <svg
+                            class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                          <span class="text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+
+    <!-- Additional Information -->
+    {
+      servicesData.additionalInfo && (
+        <div class="bg-blue-50 rounded-lg p-8 border border-blue-100">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0">
+              <svg
+                class="w-8 h-8 text-blue-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">
+                {servicesData.additionalInfo.title}
+              </h3>
+              <p class="text-gray-700">
+                {servicesData.additionalInfo.description}
+              </p>
+            </div>
+          </div>
+        </div>
+      )
+    }
+  </div>
+</section>

@@ -1,6 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HeroSection from "../components/HeroSection.astro";
+import Services from "../components/Services.astro";
+import AddressCard from "../components/AddressCard.astro";
 ---
 
 <Layout title="Home">
@@ -9,5 +11,23 @@ import HeroSection from "../components/HeroSection.astro";
     slot="content"
   >
     <HeroSection />
+    <div class="w-full blue-gradient">
+      <Services />
+    </div>
+
+    <AddressCard
+      title="Karuna Law Office"
+      description="If you would like to consult with us, or retain us for our services, please make an appointment by email to"
+      addressLine1="2275"
+      addressLine2="Lake Shore Blvd W Etobicoke"
+      city="Toronto"
+      province="ON"
+      postalCode="M8V 3Y3"
+      country="Canada"
+      markerColor="#10B981"
+      markerLabel="Karuna Law Office"
+      latitude={43.6195725}
+      longitude={-79.4852031}
+    />
   </div>
 </Layout>
