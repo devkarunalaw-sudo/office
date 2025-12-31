@@ -1,0 +1,29 @@
+{
+  "title": "We Offer the following services",
+  "services": [
+    {
+      "title": "Refugee Claims and Appeals",
+      "description": "The Immigration Refugee Board, Refugee Appeal Division, and Federal Court of Canada",
+      "icon": "gavel",
+      "color": "indigo"
+    },
+    {
+      "title": "Applications for Permanent residency",
+      "description": "Humanitarian and Compassionate Applications for Permanent residency, Pre-Risk Removal Assessments, and other applications to Immigration, Refugees, Citizenship Canada",
+      "icon": "file-text",
+      "color": "pink"
+    },
+    {
+      "title": "Citizenship and Family Sponsorship",
+      "description": "Handling family sponsorship applications for reunification with relatives in Canada.",
+      "icon": "passport",
+      "color": "teal"
+    },
+    {
+      "title": "Appeals, Litigation, and Advocacy",
+      "description": "Representing clients in appeals, judicial reviews, or detention hearings (e.g., Federal Court cases).",
+      "icon": "gavel",
+      "color": "orange"
+    }
+  ]
+}

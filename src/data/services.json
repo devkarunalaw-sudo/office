@@ -1,0 +1,36 @@
+{
+  "heading": "We Offer the Following Services",
+  "subheading": "",
+  "services": [
+    {
+      "icon": "Scale",
+      "title": "Refugee Claims and Appeals",
+      "description": "Complete representation at the Immigration Refugee Board, Refugee Appeal Division, and Federal Court of Canada, Including:",
+      "conditional": false,
+      "features": [
+        "Immigration Refugee Board hearings",
+        "Refugee Appeal Division cases",
+        "Federal Court of Canada applications and motions"
+      ]
+    },
+    {
+      "icon": "Users",
+      "title": "Other Immigration Services",
+      "description": "We may be able to assist you with following:",
+      "conditional": false,
+      "features": [
+        "Family unification applications for permanent residence",
+        "Temporary residence visa applications",
+        "Humanitarian and compassionate applications"
+      ]
+    }
+  ],
+  "additionalInfo": {
+    "title": "Need Help with Something Else?",
+    "description": "We can also assist you with other immigration matters. If we are not able to help you, we can refer you to lawyers who can."
+  },
+  "cta": {
+    "text": "Schedule a Consultation",
+    "link": "/contact"
+  }
+}
