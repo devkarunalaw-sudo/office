@@ -41,6 +41,8 @@
   --radius: 0.7rem;
   --spacing: 0.25rem;
   --color-primary-500: oklch(0.66 0.1268 251.71);
+
+  --text-tiny: 0.625rem; /* 10px */
 }
 
 @layer base {
