@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 @theme {
   /* Original Colors */
   --color-soft-white: #fcfcfc;
@@ -34,6 +35,24 @@
   --color-accent-hover: var(--color-dharma-gold-hover);
   --color-brand: var(--color-dharma-burgundy);
   --color-brand-dark: var(--color-dharma-dark-red);
+
+  /* v4 Base Variables */
+  --background: var(--color-bg-light);
+  --radius: 0.7rem;
+  --spacing: 0.25rem;
+  --color-primary-500: oklch(0.66 0.1268 251.71);
+}
+
+@layer base {
+  ::selection {
+    color: #fff;
+    background: var(--color-selection);
+  }
+
+  ::-moz-selection {
+    color: #fff;
+    background: var(--color-selection);
+  }
 }
 
 @layer components {
@@ -45,33 +64,16 @@
 
   .blue-gradient {
     background-image: linear-gradient(
-      to top,
-      #d8e6f6,
-      #dde9f7,
-      #e1edf8,
-      #e6f0f9,
-      #ebf3fa,
-      #ebf3fa,
-      #ebf3f3,
-      #ebf3f9,
-      #e6f0f8,
-      #e1edf7,
-      #dce9f6,
-      #d8e6f5
+      to top, #d8e6f6, #dde9f7, #e1edf8, #e6f0f9, #ebf3fa, #ebf3fa, #ebf3f3, #ebf3f9, #e6f0f8, #e1edf7, #dce9f6, #d8e6f5
     );
   }
 
-    /* Dharma Burgundy Gradient - Rich & Deep */
   .dharma-gradient {
      background-image: linear-gradient(to top, #3f0000, #3f0000, #3f0000, #3f0000, #3f0000, #440001, #490102, #4e0103, #5a0304, #650504, #710a03, #7c1000);
   }
 
   .gold-gradient {
-    background-image: linear-gradient(
-      to bottom,
-      var(--color-dharma-gold),
-      var(--color-dharma-gold-hover)
-    );
+    background-image: linear-gradient(to bottom, var(--color-dharma-gold), var(--color-dharma-gold-hover));
   }
 
   .dharma-button {
@@ -106,168 +108,51 @@
 }
 
 @layer utilities {
+  /* Helper classes for easy access to theme colors */
+  .text-dharma-burgundy { color: var(--color-dharma-burgundy); }
+  .text-dharma-gold { color: var(--color-dharma-gold); }
+  .text-muted { color: var(--color-text-muted); }
+  .bg-dharma-burgundy { background-color: var(--color-dharma-burgundy); }
+  .bg-dharma-gold { background-color: var(--color-dharma-gold); }
+  .bg-dharma-light { background-color: var(--color-bg-light); }
+  .border-dharma-burgundy { border-color: var(--color-dharma-burgundy); }
+  .border-dharma-gold { border-color: var(--color-dharma-gold); }
+  .z-front { z-index: 9999; }
+
   .nav-link {
     @apply text-white text-base font-bold hover:text-dharma-gold-hover transition-colors;
   }
 
-  .z-front {
-    z-index: 9999;
-  }
-
-  /* Dharma-specific text colors */
-  .text-dharma-burgundy {
-    color: var(--color-dharma-burgundy);
-  }
-
-  .text-dharma-gold {
-    color: var(--color-dharma-gold);
-  }
-
-  .text-muted {
-    color: var(--color-text-muted);
-  }
-
-  /* Dharma-specific backgrounds */
-  .bg-dharma-burgundy {
-    background-color: var(--color-dharma-burgundy);
-  }
-
-  .bg-dharma-gold {
-    background-color: var(--color-dharma-gold);
-  }
-
-  .bg-dharma-light {
-    background-color: var(--color-bg-light);
-  }
-
-  /* Dharma-specific borders */
-  .border-dharma-burgundy {
-    border-color: var(--color-dharma-burgundy);
-  }
-
-  .border-dharma-gold {
-    border-color: var(--color-dharma-gold);
-  }
-
-  /* Fixed Slide-in utility classes */
-  .slide-in {
+  /* Slide-in Logic: Uses CSS Variables for responsive distances */
+  .slide-in, .slide-in-right, .slide-in-up {
     position: relative;
     opacity: 0;
-    transform: translateX(-100%);
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform, opacity;
   }
 
-  .slide-in.active {
+  .slide-in { transform: translateX(var(--slide-dist-neg, -30px)); }
+  .slide-in-right { transform: translateX(var(--slide-dist, 30px)); }
+  .slide-in-up { transform: translateY(var(--slide-up-dist, 50px)); }
+
+  .slide-in.active, .slide-in-right.active, .slide-in-up.active {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate(0, 0);
   }
 
-  .slide-in-right {
-    position: relative;
-    opacity: 0;
-    transform: translateX(100%);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform, opacity;
-  }
-
-  .slide-in-right.active {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  .slide-in-up {
-    position: relative;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: transform, opacity;
-  }
-
-  .slide-in-up.active {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Mobile-specific adjustments */
-  @media (max-width: 640px) {
-    .slide-in {
-      transform: translateX(-30px);
-    }
-    
-    .slide-in-right {
-      transform: translateX(30px);
-    }
-    
-    .slide-in.active,
-    .slide-in-right.active,
-    .slide-in-up.active {
-      transform: translateX(0) translateY(0);
+  /* Responsive Slide Distances */
+  @media (min-width: 641px) {
+    :root {
+      --slide-dist: 50px;
+      --slide-dist-neg: -50px;
     }
   }
 
-  /* Medium screen specific fixes */
-  @media (min-width: 641px) and (max-width: 1024px) {
-    .slide-in {
-      transform: translateX(-50px);
-    }
-    
-    .slide-in-right {
-      transform: translateX(50px);
-    }
-    
-    .slide-in.active,
-    .slide-in-right.active,
-    .slide-in-up.active {
-      transform: translateX(0) translateY(0);
-    }
-  }
-
-  /* Large screen enhancements */
   @media (min-width: 1025px) {
-    .slide-in {
-      transform: translateX(-120px);
+    :root {
+      --slide-dist: 120px;
+      --slide-dist-neg: -120px;
+      --slide-up-dist: 80px;
     }
-    
-    .slide-in-right {
-      transform: translateX(120px);
-    }
-    
-    .slide-in-up {
-      transform: translateY(80px);
-    }
-    
-    .slide-in.active,
-    .slide-in-right.active,
-    .slide-in-up.active {
-      transform: translateX(0) translateY(0);
-    }
-  }
-}
-
-@layer base {
-  :root {
-    --background: var(--color-base-50);
-    --radius: 0.7rem;
-    --spacing: 0.25rem;
-  }
-
-  /* Custom text selection color */
-  ::selection {
-    color: #fff;
-    background: var(--color-selection);
-  }
-
-  ::-moz-selection {
-    color: #fff;
-    background: var(--color-selection);
-  }
-}
-
-@layer theme {
-  :root {
-    --color-primary-500: oklch(0.66 0.1268 251.71);
-    --color-base-50: var(--color-gray-50);
-    --color-gray-50: oklch(98.5% 0.002 247.839);
   }
 }
