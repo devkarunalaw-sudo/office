@@ -1,0 +1,122 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { slug } from "github-slugger";
+import teamData from "../../../data/teamData.json";
+import { BASE_URL } from "../../../consts";
+
+export async function getStaticPaths() {
+  return teamData.map((member) => ({
+    params: { name: slug(member.name) },
+    props: { member },
+  }));
+}
+
+const { member } = Astro.props;
+---
+
+<Layout title={`Karuna Law - ${member.name}`}>
+  <article slot="content" class="mt-30 mx-auto py-8 px-4 max-w-4xl">
+    <div class="flex flex-col items-center">
+      <img
+        src=`${BASE_URL}${member.image || "person.png"}`
+        alt={member.name}
+        class="w-48 h-48 rounded-full object-cover mb-4"
+      />
+      <h1 class="text-4xl font-bold mb-2">{member.name}</h1>
+      <p class="text-xl text-gray-600 mb-4">{member.title}</p>
+    </div>
+
+    <div class="max-w-prose mx-auto px-4">
+      {
+        Array.isArray(member.bio) ? (
+          member.bio.map((paragraph) => (
+            <p class="text-lg leading-relaxed mb-6">{paragraph}</p>
+          ))
+        ) : (
+          <p class="text-lg leading-relaxed mb-6">{member.bio}</p>
+        )
+      }
+
+      {
+        member.articles && member.articles.length > 0 && (
+          <div class="border-t border-gray-200 pt-6 mb-6">
+            <h2 class="text-2xl font-semibold mb-4">Articles & Publications</h2>
+            <div class="space-y-4">
+              {member.articles.map((article) => (
+                <div class="border-l-4 border-dharma-burgundy pl-4 py-2">
+                  <a
+                    href={article.url}
+                    class="text-xl font-medium text-blue-600 hover:underline"
+                  >
+                    {article.title}
+                  </a>
+                  <p class="text-sm text-gray-500 mt-1">
+                    {new Date(article.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </p>
+                  {article.description && (
+                    <p class="text-gray-700 mt-2">{article.description}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      }
+
+      <div class="border-t border-gray-200 pt-6">
+        <h2 class="text-2xl font-semibold mb-4">Contact Information</h2>
+
+        {
+          member.location && (
+            <p class="mb-2">
+              <strong>Location:</strong> {member.location}
+            </p>
+          )
+        }
+
+        {
+          member.socialLinks?.email && (
+            <p class="mb-2">
+              <strong>Email:</strong>
+
+              <a
+                href={member.socialLinks.email}
+                class="text-blue-600 hover:underline"
+              >
+                {member.socialLinks.email.replace("mailto:", "")}
+              </a>
+            </p>
+          )
+        }
+
+        {
+          member.socialLinks?.linkedin && (
+            <p class="mb-2">
+              <strong>LinkedIn:</strong>
+
+              <a
+                href={member.socialLinks.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-blue-600 hover:underline"
+              >
+                View Profile
+              </a>
+            </p>
+          )
+        }
+      </div>
+
+      <a
+        href=`${BASE_URL}team`
+        class="mt-8 inline-block text-red-700 hover:text-red-800 hover:underline"
+      >
+        ← Back
+      </a>
+    </div>
+  </article>
+</Layout>

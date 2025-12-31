@@ -1,0 +1,109 @@
+---
+import { slug } from "github-slugger";
+interface Props {
+  name: string;
+  role: string;
+  bio: string;
+  imageUrl: string;
+  location: string;
+  socialLinks?: {
+    linkedin?: string;
+    email?: string;
+  };
+}
+
+const { name, role, bio, imageUrl, location, socialLinks = {} } = Astro.props;
+import { Mail, Linkedin } from "lucide-astro";
+---
+
+<div class="flex items-center justify-center py-3 px-4">
+  <div class="container max-w-6xl">
+    <div
+      class="bg-white rounded-lg shadow hover:shadow-lg transition-shadow duration-300 overflow-hidden"
+    >
+      <div class="flex flex-col md:flex-row">
+        <!-- Profile Image Section -->
+        <div class="md:w-1/3 bg-gray-50 flex items-center justify-center p-8">
+          <img
+            src=`${imageUrl}`
+            alt={name}
+            class="rounded-full w-44 h-44 md:w-52 md:h-52 object-cover"
+          />
+        </div>
+
+        <!-- Content Section -->
+        <div class="md:w-2/3 p-6 flex flex-col">
+          <!-- Header -->
+          <div
+            class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 mb-4"
+          >
+            <h3 class="text-2xl font-bold text-gray-900">
+              {name}
+            </h3>
+            <span
+              class="bg-dharma-gold text-white px-3 py-1 rounded text-sm font-medium inline-block w-fit"
+            >
+              {role}
+            </span>
+          </div>
+
+          <!-- Bio -->
+          <p class="text-gray-600 leading-relaxed mb-4">
+            {bio}
+            <a
+              href=`team/members/${slug(name)}`
+              class="text-red-700 hover:text-red-800 hover:underline font-medium ml-1"
+            >
+              read more
+            </a>
+          </p>
+
+          <!-- Footer with Social Links and Location - pushed to bottom -->
+          <div
+            class="flex flex-row sm:justify-between sm:items-center gap-3 mt-auto"
+          >
+            <!-- Social Icons -->
+            <div class="flex gap-3">
+              {
+                socialLinks.linkedin && (
+                  <a
+                    href={socialLinks.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-gray-600 hover:text-red-700 transition-colors"
+                    aria-label="LinkedIn"
+                  >
+                    <Linkedin class="w-5 h-5" />
+                  </a>
+                )
+              }
+
+              {
+                socialLinks.email && (
+                  <a
+                    href={socialLinks.email}
+                    class="text-gray-600 hover:text-red-700 transition-colors"
+                    aria-label="Email"
+                  >
+                    <Mail class="w-5 h-5" />
+                  </a>
+                )
+              }
+            </div>
+
+            <!-- Location -->
+            <span class="text-gray-500 text-sm flex items-center gap-1">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              {location}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
