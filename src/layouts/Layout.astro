@@ -12,28 +12,27 @@ const { title } = Astro.props;
 <!doctype html>
 <html lang="en-CA">
   <head>
-    <!-- Basic -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- SEO Meta -->
+    <title>
+      Karuna Law - A Law Office Serving Refugees And Immigrants | Toronto
+    </title>
     <meta
       name="description"
       content="Karuna Law Office - Provides legal services to refugees and migrants seeking a secure and positive life in Canada."
     />
     <meta
       name="keywords"
-      content="immigration lawyer, refugee law, Toronto immigration, refugee claims, immigration services, Canada immigration"
+      content="immigration lawyer Toronto, refugee law Canada, refugee claim lawyer, Toronto immigration services, permanent residency Canada"
     />
     <meta name="author" content="Karuna Law" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://karunalaw.ca/" />
 
-    <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
     <meta
       property="og:title"
       content="Karuna Law - A Law Office Serving Refugees And Immigrants | Toronto"
@@ -44,12 +43,11 @@ const { title } = Astro.props;
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://karunalaw.ca/" />
-    <meta property="og:image" content="pnm" />
+    <meta property="og:image" content="https://karunalaw.ca/logo.png" />
     <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:height" content="1200" />
     <meta property="og:locale" content="en_CA" />
 
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
@@ -59,35 +57,63 @@ const { title } = Astro.props;
       name="twitter:description"
       content="Provides legal services to refugees and migrants seeking a secure and positive life in Canada."
     />
-    <meta name="twitter:image" content="https://karunalaw.ca/og-image.svg" />
+    <meta name="twitter:image" content="https://karunalaw.ca/logo.png" />
 
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Title -->
-    <title>
-      Karuna Law - A Law Office Serving Refugees And Immigrants | Toronto
-    </title>
-
-    <!-- Structured Data (Local Legal Business) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "LegalService",
         "name": "Karuna Law",
+        "description": "Provides legal services to refugees and migrants seeking a secure and positive life in Canada.",
         "url": "https://karunalaw.ca",
         "logo": "https://karunalaw.ca/logo.png",
-        "image": "https://karunalaw.ca/og-image.svg",
+        "image": "https://karunalaw.ca/logo.png",
+        "email": "info@karunalaw.ca",
         "address": {
           "@type": "PostalAddress",
-          "addressLocality": "Toronto",
+          "streetAddress": "2275 Lake Shore Blvd W",
+          "addressLocality": "Etobicoke",
           "addressRegion": "ON",
+          "postalCode": "M8V 3Y3",
           "addressCountry": "CA"
         },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "43.6195722",
+          "longitude": "-79.4852927"
+        },
+        "openingHours": "Mo-Fr 09:00-17:00",
         "areaServed": "Toronto, Ontario",
-        "description": "Provides legal services to refugees and migrants seeking a secure and positive life in Canada."
+        "knowsAbout": [
+          "Refugee Law",
+          "Immigration Law",
+          "Canadian Citizenship",
+          "Refugee Appeals",
+          "Permanent Residency"
+        ]
       }
     </script>
+
+    <link rel="stylesheet" href="/_astro/index.p0TxsIws.css" />
+
+    <style>
+      .custom-marker[data-astro-cid-xkyuosux] {
+        background: transparent !important;
+        border: none !important;
+      }
+      .grayscale-tiles[data-astro-cid-xkyuosux] {
+        filter: grayscale(100%);
+      }
+      .leaflet-popup-content-wrapper[data-astro-cid-xkyuosux] {
+        border-radius: 8px;
+        padding: 8px;
+      }
+      .leaflet-popup-tip[data-astro-cid-xkyuosux] {
+        background: #fff;
+      }
+    </style>
   </head>
   <body>
     <!-- Header Component -->

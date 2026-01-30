@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://www.karunalaw.ca/sitemap-index.xml
+Sitemap: https://karunalaw.ca/sitemap-index.xml
