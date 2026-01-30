@@ -96,10 +96,9 @@ const { title } = Astro.props;
       }
     </script>
 
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"
-    ></script>
-
-    <link rel="stylesheet" href="/_astro/index.p0TxsIws.css" />
+    <script
+      is:inline
+      src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
     <style>
       .custom-marker[data-astro-cid-xkyuosux] {
@@ -138,7 +137,7 @@ const { title } = Astro.props;
     </main>
     <Footer />
   </body>
-  <script>
+  <script is:inline>
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", (user) => {
         if (!user) {
