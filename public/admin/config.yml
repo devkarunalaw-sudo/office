@@ -1,0 +1,92 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "src/assets"
+public_folder: "/src/assets"
+
+collections:
+  - name: "blog"
+    label: "Blog"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Body", name: "body", widget: "markdown" }
+  - name: "services"
+    label: "Services"
+    folder: "src/content/services"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Icon", name: "icon", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - {
+          label: "Conditional",
+          name: "conditional",
+          widget: "boolean",
+          default: false,
+        }
+      - { label: "Features", name: "features", widget: "list" }
+  - name: "team"
+    label: "Team"
+    folder: "src/content/team"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Image", name: "image", widget: "image" }
+      - { label: "Location", name: "location", widget: "string" }
+      - {
+          label: "Social Links",
+          name: "socialLinks",
+          widget: "object",
+          fields:
+            [
+              {
+                label: "LinkedIn",
+                name: "linkedin",
+                widget: "string",
+                optional: true,
+              },
+              {
+                label: "Email",
+                name: "email",
+                widget: "string",
+                optional: true,
+              },
+            ],
+        }
+      - {
+          label: "Articles",
+          name: "articles",
+          widget: "list",
+          optional: true,
+          fields:
+            [
+              { label: "Title", name: "title", widget: "string" },
+              { label: "Date", name: "date", widget: "datetime" },
+              { label: "URL", name: "url", widget: "string" },
+              { label: "Description", name: "description", widget: "text" },
+            ],
+        }
+      - { label: "Body", name: "body", widget: "markdown" }
+  - name: "office"
+    label: "Office Page"
+    folder: "src/content/office"
+    create: false
+    delete: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - {
+          label: "Logo Description",
+          name: "logoDescription",
+          widget: "text",
+          optional: true,
+        }

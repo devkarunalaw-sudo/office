@@ -2,6 +2,12 @@
 import Layout from "../../layouts/Layout.astro";
 import { Image } from "astro:assets";
 import logo from "../../assets/karuna_logo.svg";
+import { getCollection } from "astro:content";
+
+const officeEntries = await getCollection('office');
+const officeEntry = officeEntries[0]; // Assuming there's only one entry for the office page
+
+const { Content } = await officeEntry.render();
 ---
 
 <Layout title="Office">
@@ -16,33 +22,10 @@ import logo from "../../assets/karuna_logo.svg";
       height={120}
       class="mb-6"
     />
-    <h1 class="text-4xl font-bold text-gray-900 mb-4">Karuna Law Office</h1>
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">{officeEntry.data.title}</h1>
     <article slot="content" class="mx-auto py-8 px-4 max-w-4xl">
-      <div class="max-w-prose mx-auto px-4">
-        <p class="text-gray-600 text-lg mb-6">
-          Karuna Law Office provides legal services to refugees and migrants
-          seeking a secure and positive life in Canada. Karuna is the Sanskrit
-          term for compassion, a deep feeling of kindness that is beyond
-          sympathy, which urges people to take action to alleviate suffering. At
-          Karuna Law Office, we work to help refugees have less suffering in
-          their lives, by helping them obtain greater security and by helping
-          them live in a country in which they have freedom, human rights, and
-          the opportunity to live a productive life with dignity.
-        </p>
-        <p class="text-gray-600 text-lg mb-16">
-          An important question for us to ask is whether there can be any
-          justice without compassion. Compassion in practice includes listening
-          carefully and speaking truthfully, with awareness and concern for
-          others' well-being. At Karuna Law Office, we practice generosity,
-          discipline, restraint from harmful speech and actions, patience, not
-          reacting with anger, persevering through hardship with courage and
-          positivity, and using concentration and analytical reasoning to find
-          realistic positive solutions – legal and humanistic – to any apparent
-          problems. We work for compassionate justice in Canada's immigration
-          legal system, and to contribute to the upholding of the aforementioned
-          values that are a vital part of Canada, secular ethical values
-          essential for Canada and the world to be a better place for all.
-        </p>
+      <div class="max-w-prose mx-auto px-4 prose">
+        <Content />
 
         <Image
           src={logo}
@@ -52,18 +35,13 @@ import logo from "../../assets/karuna_logo.svg";
           class="block mx-auto mb-6"
         />
 
-        <p
-          class="text-tiny text-gray-500 italic border-t border-gray-300 pt-4 mt-8 slide-in-up"
-        >
-          This logo was created by Lobsang Tsering. It combines Tibetan Buddhist
-          and Native or Indigenous symbolism and art. It is based on the Tibetan
-          Buddhist wheel of joy, which is a symbol representing the
-          transformation of the 3 evils of ignorance, greed and hatred, into the
-          3 jewels of Buddha, Dharma, and Sangha, which can also be interpreted
-          as God (or Goodness for secular persons), Truth, and Caring Community.
-          The logo has been recreated with "Canadian" Native or Indigenous art
-          influence.
-        </p>
+        {officeEntry.data.logoDescription && (
+          <p
+            class="text-tiny text-gray-500 italic border-t border-gray-300 pt-4 mt-8 slide-in-up"
+          >
+            {officeEntry.data.logoDescription}
+          </p>
+        )}
       </div>
     </article>
   </div>

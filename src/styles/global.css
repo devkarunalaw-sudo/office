@@ -110,51 +110,109 @@
 }
 
 @layer utilities {
+
   /* Helper classes for easy access to theme colors */
+
   .text-dharma-burgundy { color: var(--color-dharma-burgundy); }
+
   .text-dharma-gold { color: var(--color-dharma-gold); }
+
   .text-muted { color: var(--color-text-muted); }
+
   .bg-dharma-burgundy { background-color: var(--color-dharma-burgundy); }
+
   .bg-dharma-gold { background-color: var(--color-dharma-gold); }
+
   .bg-dharma-light { background-color: var(--color-bg-light); }
+
   .border-dharma-burgundy { border-color: var(--color-dharma-burgundy); }
+
   .border-dharma-gold { border-color: var(--color-dharma-gold); }
+
   .z-front { z-index: 9999; }
 
+
+
   .nav-link {
+
     @apply text-white text-base font-bold hover:text-dharma-gold-hover transition-colors;
+
   }
+
+
 
   /* Slide-in Logic: Uses CSS Variables for responsive distances */
+
   .slide-in, .slide-in-right, .slide-in-up {
+
     position: relative;
+
     opacity: 0;
+
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
     will-change: transform, opacity;
+
   }
+
+
 
   .slide-in { transform: translateX(var(--slide-dist-neg, -30px)); }
+
   .slide-in-right { transform: translateX(var(--slide-dist, 30px)); }
+
   .slide-in-up { transform: translateY(var(--slide-up-dist, 50px)); }
 
+
+
   .slide-in.active, .slide-in-right.active, .slide-in-up.active {
+
     opacity: 1;
+
     transform: translate(0, 0);
+
   }
+
+
 
   /* Responsive Slide Distances */
+
   @media (min-width: 641px) {
+
     :root {
+
       --slide-dist: 50px;
+
       --slide-dist-neg: -50px;
+
     }
+
   }
 
+
+
   @media (min-width: 1025px) {
+
     :root {
+
       --slide-dist: 120px;
+
       --slide-dist-neg: -120px;
+
       --slide-up-dist: 80px;
+
     }
+
   }
+
+
+
+  /* Custom margin for paragraphs within prose content */
+
+  .prose p {
+
+    margin-bottom: 1.5em; /* Adjust as needed */
+
+  }
+
 }

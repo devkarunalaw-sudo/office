@@ -1,48 +1,47 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
-import { slug } from "github-slugger";
-import teamData from "../../../data/teamData.json";
+import { getCollection, type CollectionEntry } from "astro:content";
 import { BASE_URL } from "../../../consts";
 
 export async function getStaticPaths() {
-  return teamData.map((member) => ({
-    params: { name: slug(member.name) },
+  const team = await getCollection("team");
+  return team.map((member) => ({
+    params: { name: member.slug },
     props: { member },
   }));
 }
 
+type Props = {
+  member: CollectionEntry<"team">;
+};
+
 const { member } = Astro.props;
+const { Content } = await member.render();
 ---
 
-<Layout title={`Karuna Law - ${member.name}`}>
+<Layout title={`Karuna Law - ${member.data.name}`}>
   <article slot="content" class="mt-30 mx-auto py-8 px-4 max-w-4xl">
     <div class="flex flex-col items-center">
       <img
-        src=`${BASE_URL}${member.image || "person.png"}`
-        alt={member.name}
+        src=`${BASE_URL}${member.data.image || "person.png"}`
+        alt={member.data.name}
         class="w-48 h-48 rounded-full object-cover mb-4"
       />
-      <h1 class="text-4xl font-bold mb-2">{member.name}</h1>
-      <p class="text-xl text-gray-600 mb-4">{member.title}</p>
+      <h1 class="text-4xl font-bold mb-2">{member.data.name}</h1>
+      <p class="text-xl text-gray-600 mb-4">{member.data.title}</p>
+    </div>
+
+    <div class="max-w-prose mx-auto px-4 prose">
+        <Content />
     </div>
 
     <div class="max-w-prose mx-auto px-4">
       {
-        Array.isArray(member.bio) ? (
-          member.bio.map((paragraph) => (
-            <p class="text-lg leading-relaxed mb-6">{paragraph}</p>
-          ))
-        ) : (
-          <p class="text-lg leading-relaxed mb-6">{member.bio}</p>
-        )
-      }
-
-      {
-        member.articles && member.articles.length > 0 && (
+        member.data.articles && member.data.articles.length > 0 && (
           <div class="border-t border-gray-200 pt-6 mb-6">
             <h2 class="text-2xl font-semibold mb-4">Articles & Publications</h2>
             <div class="space-y-4">
-              {member.articles.map((article) => (
+              {member.data.articles.map((article) => (
                 <div class="border-l-4 border-dharma-burgundy pl-4 py-2">
                   <a
                     href={article.url}
@@ -71,35 +70,35 @@ const { member } = Astro.props;
         <h2 class="text-2xl font-semibold mb-4">Contact Information</h2>
 
         {
-          member.location && (
+          member.data.location && (
             <p class="mb-2">
-              <strong>Location:</strong> {member.location}
+              <strong>Location:</strong> {member.data.location}
             </p>
           )
         }
 
         {
-          member.socialLinks?.email && (
+          member.data.socialLinks?.email && (
             <p class="mb-2">
               <strong>Email:</strong>
 
               <a
-                href={member.socialLinks.email}
+                href={member.data.socialLinks.email}
                 class="text-blue-600 hover:underline"
               >
-                {member.socialLinks.email.replace("mailto:", "")}
+                {member.data.socialLinks.email.replace("mailto:", "")}
               </a>
             </p>
           )
         }
 
         {
-          member.socialLinks?.linkedin && (
+          member.data.socialLinks?.linkedin && (
             <p class="mb-2">
               <strong>LinkedIn:</strong>
 
               <a
-                href={member.socialLinks.linkedin}
+                href={member.data.socialLinks.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="text-blue-600 hover:underline"

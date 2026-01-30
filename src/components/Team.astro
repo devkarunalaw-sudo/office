@@ -1,21 +1,28 @@
 ---
-import teamData from "../data/teamData.json";
+import { getCollection } from 'astro:content';
 import BioCard from "./BioCard.astro";
+
+const team = await getCollection('team');
 ---
 
 <section class="max-w-6xl mx-auto md:px-6 md:py-12">
   <div class="space-y-8">
     {
-      teamData.map((member) => (
-        <BioCard
-          name={member.name}
-          role={member.title}
-          bio={member.bio && member.bio.length > 0 ? member.bio[0] : ""}
-          imageUrl={member.image}
-          location={member.location}
-          socialLinks={member.socialLinks}
-        />
-      ))
+      team.map((member) => {
+        const plainTextBio = member.body.replace(/<[^>]*>?/gm, '');
+        const shortBio = plainTextBio.substring(0, 200) + '...';
+        return (
+            <BioCard
+              slug={member.slug}
+              name={member.data.name}
+              role={member.data.title}
+              bio={shortBio}
+              imageUrl={member.data.image}
+              location={member.data.location}
+              socialLinks={member.data.socialLinks}
+            />
+        )
+      })
     }
   </div>
 </section>
