@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 import logo from "../../assets/karuna_logo.svg";
 import { getCollection } from "astro:content";
 
-const officeEntries = await getCollection('office');
+const officeEntries = await getCollection("office");
 const officeEntry = officeEntries[0]; // Assuming there's only one entry for the office page
 
 const { Content } = await officeEntry.render();
@@ -22,9 +22,11 @@ const { Content } = await officeEntry.render();
       height={120}
       class="mb-6"
     />
-    <h1 class="text-4xl font-bold text-gray-900 mb-4">{officeEntry.data.title}</h1>
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">
+      {officeEntry.data.title}
+    </h1>
     <article slot="content" class="mx-auto py-8 px-4 max-w-4xl">
-      <div class="max-w-prose mx-auto px-4 prose">
+      <div class="max-w-prose mx-auto px-4 prose text-justify">
         <Content />
 
         <Image
@@ -35,13 +37,13 @@ const { Content } = await officeEntry.render();
           class="block mx-auto mb-6"
         />
 
-        {officeEntry.data.logoDescription && (
-          <p
-            class="text-tiny text-gray-500 italic border-t border-gray-300 pt-4 mt-8 slide-in-up"
-          >
-            {officeEntry.data.logoDescription}
-          </p>
-        )}
+        {
+          officeEntry.data.logoDescription && (
+            <p class="text-tiny text-gray-500 italic border-t border-gray-300 pt-4 mt-8 slide-in-up">
+              {officeEntry.data.logoDescription}
+            </p>
+          )
+        }
       </div>
     </article>
   </div>
